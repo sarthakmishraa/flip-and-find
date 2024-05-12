@@ -23,6 +23,9 @@ const cardImages = [
 ];
 
 export const Home = () => {
+    const [name, setName] = useState<string>("");
+    const [nameEntered, setNameEntered] = useState<boolean>(false);
+    const [gameCompleted, setGameCompleted] = useState<boolean>(false);
     const [images, setImages] = useState<cardImagesType[]>([]);
     const [moves, setMoves] = useState<number>(0);
     const [cardOne, setCardOne] = useState<cardImagesType | null>(null);
@@ -39,6 +42,9 @@ export const Home = () => {
         setCardTwo(null);
         setImages(shuffledImages);
         setMoves(0);
+        setName("");
+        setNameEntered(false);
+        setGameCompleted(false);
     };
 
     // console.log(images);
@@ -54,6 +60,10 @@ export const Home = () => {
             if(cardOne.src === cardTwo.src) {
                 // console.log("Images matched");
                 setImages(prevImages => {
+                    const tempImages = prevImages.filter((image) => image.matched===true)
+                    if(tempImages.length === cardImages.length*2 - 2) {
+                        setGameCompleted(true);
+                    }
                     return prevImages.map((image) => {
                         if(image.src === cardOne.src) {
                             return {...image, matched: true}
@@ -79,6 +89,10 @@ export const Home = () => {
         setCardTwo(null);
         setMoves((prevValue) => prevValue + 1);
         setDisabled(false);
+    };
+
+    const handleName = () => {
+        setNameEntered(true);
     }
 
     useEffect(() => {
@@ -89,26 +103,59 @@ export const Home = () => {
         <div className="bg-gradient-to-b from-sky-200 to-white font-semibold flex flex-col px-[250px] text-center py-[10px]">
             <div className="space-y-5">
                 <p className="text-4xl">Flip & Find</p>
+                {
+                    !nameEntered ? (
+                        <div>
+                            <input
+                                type="text"
+                                placeholder="Enter your name"
+                                onChange={(event) => setName(event.target.value)}
+                                className="p-1 rounded-md mx-2 text-lg border-2 border-sky-500"
+                            />
+                            <button
+                                onClick={handleName}
+                                className="text-lg px-4 py-1 text-yellow-200 rounded-lg bg-sky-700 active:text-yellow-400 active:bg-sky-400 hover:bg-sky-500 hover:transition hover:delay-100 hover:scale-[120%] active:transition-all"
+                            >
+                                Enter
+                            </button>
+                        </div>
+                    ):(
+                        <p className="text-xl font-semibold">Good Luck { name }!</p>
+                    )
+                }
                 <button
-                    className="text-lg p-1 text-yellow-200 rounded-lg bg-sky-600 active:bg-sky-500 active:transition-all"
+                    className="text-lg px-4 py-1 text-yellow-200 rounded-lg bg-sky-700 active:text-yellow-400 active:bg-sky-400 hover:bg-sky-500 hover:transition hover:delay-100 hover:scale-[120%] active:transition-all"
                     onClick={shuffleImages}>
                         New Game
                 </button>
             </div>
-            <div className="grid grid-cols-4 mt-[40px] gap-[20px]">
+            <div className="flex justify-around">
+                <div className="grid grid-cols-4 mt-[40px] gap-[28px]">
+                    {
+                        images.map((image) => (
+                            <Card
+                                key={image.id}
+                                image={image}
+                                handleChoice={handleChoice}
+                                turnedUp={image === cardOne || image === cardTwo || image.matched}
+                                disabled={disabled}
+                            />
+                        ))
+                    }
+                </div>
+            </div>
+            <div className="flex justify-around">
                 {
-                    images.map((image) => (
-                        <Card
-                            key={image.id}
-                            image={image}
-                            handleChoice={handleChoice}
-                            turnedUp={image === cardOne || image === cardTwo || image.matched}
-                            disabled={disabled}
-                        />
-                    ))
+                    gameCompleted ? (
+                        <div className="px-[250px] my-4 border-2 border-sky-300 rounded-lg shadow-2xl">
+                            <p className="text-2xl my-5">Congrats {name} !!!</p>
+                            <p className="text-2xl my-5">You completed the game in {moves} moves!</p>
+                        </div>
+                    ):(
+                        <p className="text-2xl my-5">Moves: {moves}</p>
+                    )
                 }
             </div>
-            <p className="text-2xl my-5">Moves: {moves}</p>
         </div>
     )
 }
