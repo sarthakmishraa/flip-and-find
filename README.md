@@ -13,6 +13,10 @@ Flip & Find is a fun and engaging matching card game where players can test thei
 
 ## Snippets
 
+![fnf1](https://github.com/sarthakmishraa/flip-and-find/assets/56118819/09174ab5-ad81-44c0-b3c2-ac73b87bfd7b)
+
+![fnf2](https://github.com/sarthakmishraa/flip-and-find/assets/56118819/61b28ebc-e924-4dcf-8356-c201b416d34a)
+
 ## Tech Used
 - TypeScript: Leveraging the benefits of static typing for a more robust codebase.
 - Tailwind CSS: Rapidly style and design the user interface with utility-first CSS framework.
