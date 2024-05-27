@@ -100,7 +100,7 @@ export const Home = () => {
     }, []);
 
     return(
-        <div className="bg-gradient-to-b from-sky-200 to-white font-semibold flex flex-col px-[250px] text-center py-[10px]">
+        <div className="bg-gradient-to-b from-sky-200 to-white font-semibold flex flex-col px-[50px] md:px-[150px] lg:px-[250px] text-center py-[10px]">
             <div className="space-y-5">
                 <p className="text-4xl">Flip & Find</p>
                 {
