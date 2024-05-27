@@ -147,7 +147,7 @@ export const Home = () => {
             <div className="flex justify-around">
                 {
                     gameCompleted ? (
-                        <div className="px-[250px] my-4 border-2 border-sky-300 rounded-lg shadow-2xl">
+                        <div className="px-[50px] md:px-[150px] lg:px-[250px] my-4 border-2 border-sky-300 rounded-lg shadow-2xl">
                             <p className="text-2xl my-5">Congrats {name} !!!</p>
                             <p className="text-2xl my-5">You completed the game in {moves} moves!</p>
                         </div>
