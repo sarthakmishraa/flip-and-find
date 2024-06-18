@@ -22,7 +22,7 @@ export const Card: React.FC<CardProps> = ({ image, handleChoice, turnedUp, disab
     };
 
     return(
-        <div className="relative w-[80px] lg:w-[150px] xl:w-[200px] cursor-pointer shadow-4xl" >
+        <div className="relative w-[80px] lg:w-[150px] xl:w-[200px] cursor-pointer shadow-4xl active:rotate-180 active:transition-all" >
             <div>
                 {
                     turnedUp ? (
